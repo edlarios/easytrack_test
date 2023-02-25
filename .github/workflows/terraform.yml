@@ -28,7 +28,7 @@ jobs:
 
      - name: Terraform Format
        id: fmt
-       run: terraform fmt -check
+       run: bash -c "terraform fmt -check"
 
      - name: Terraform Init
        id: init
