@@ -16,7 +16,7 @@ jobs:
       run:
         shell: bash
         # We keep Terraform files in the terraform directory.
-      working-directory: ./terraform
+      working-directory: src 
     steps:
      - name: Checkout code
        uses: actions/checkout@v2
@@ -26,9 +26,11 @@ jobs:
          terraform_version: 1.3.9
          terraform_wrapper: false
 
+     - name: Print directory
+       run: ls -la
      - name: Terraform Format
        id: fmt
-       run: bash -c "terraform fmt -check"
+       run: terraform fmt -check
 
      - name: Terraform Init
        id: init
