@@ -17,8 +17,8 @@ jobs:
       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     defaults:
       run:
-      shell: bash
-      working-directory: .
+        shell: bash
+        working-directory: .
     steps:
      - name: Checkout code
        uses: actions/checkout@v2
