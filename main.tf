@@ -1,11 +1,11 @@
-# Create S3 bucket and apply policy
-terraform {
-  backend "s3" {
+// Create S3 bucket and apply policy
+/* terraform {
+ backend "s3" {
     bucket = "easytracksterra"
     key    = "terraform.tfstate"
   }
 }
-
+*/
 resource "aws_instance" "easytr-machine" {
   //Crea dos instancias de EC2
   count = 2
