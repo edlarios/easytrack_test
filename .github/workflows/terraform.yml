@@ -1,4 +1,3 @@
-
 name: "Terraform"
 
 on:
@@ -15,7 +14,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     defaults:
       run:
-        working-directory: src
+        shell: bash
+        # We keep Terraform files in the terraform directory.
+      working-directory: ./terraform
     steps:
      - name: Checkout code
        uses: actions/checkout@v2
