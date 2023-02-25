@@ -17,11 +17,11 @@ jobs:
       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     defaults:
       run: |
-            mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-            echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
-            chmod 600 ~/.ssh/id_rsa
-            ssh-add ~/.ssh/id_rsa
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
       shell: bash
       working-directory: .
     steps:
