@@ -1,5 +1,5 @@
 name: Terraform Infrastructure Change Management Pipeline with GitHub Actions
-'on':
+on:
   push:
     branches:
       - main
@@ -12,8 +12,8 @@ name: Terraform Infrastructure Change Management Pipeline with GitHub Actions
       - terraform/**
 env:
   TF_LOG: INFO
-  AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-  AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 jobs:
   apply:
     name: Terraform Infrastructure Change Management
@@ -52,7 +52,38 @@ jobs:
             terraform
             ${{ steps.plan.outputs.stdout }}
         with:
-          script: "const output = `#### Terraform Format and Style \U0001F58C\\`${{ steps.fmt.outcome }}\\`\n#### Terraform Initialization ⚙️\\`${{ steps.init.outcome }}\\`\n#### Terraform Validation \U0001F916\\`${{ steps.validate.outcome }}\\`\n#### Terraform Plan \U0001F4D6\\`${{ steps.plan.outcome }}\\`\n\n<details><summary>Show Plan</summary>\n\n\\`\\`\\`\\n\n${process.env.PLAN}\n\\`\\`\\`\n\n</details>\n*Pushed by: @${{ github.actor }}, Action: \\`${{ github.event_name }}\\`*`;\n\ngithub.rest.issues.createComment({\n  issue_number: context.issue.number,\n  owner: context.repo.owner,\n  repo: context.repo.repo,\n  body: output\n})\n"
+          script: >
+            const output = `#### Terraform Format and Style 🖌\`${{
+            steps.fmt.outcome }}\`
+
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+
+            <details><summary>Show Plan</summary>
+
+
+            \`\`\`\n
+
+            ${process.env.PLAN}
+
+            \`\`\`
+
+
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
