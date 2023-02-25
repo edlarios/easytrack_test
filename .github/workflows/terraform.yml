@@ -14,7 +14,6 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
       SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
-      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     defaults:
       run:
         shell: bash
@@ -29,6 +28,8 @@ jobs:
          terraform_wrapper: false
          
      - name: loading SSH Keys
+       env:
+         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
        run: |
          mkdir -p ~/.ssh
          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
