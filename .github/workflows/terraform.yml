@@ -12,6 +12,8 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+      SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
       SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     defaults:
       run:
