@@ -12,10 +12,17 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     defaults:
       run:
           shell: bash
         # We keep Terraform files in the terraform directory.
+          |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
           working-directory: .
     steps:
      - name: Checkout code
